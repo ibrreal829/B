@@ -5,10 +5,8 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
     - name: Set up Miniconda
       uses: conda-incubator/setup-miniconda@v2
@@ -21,10 +19,7 @@ jobs:
     - name: Update Conda environment
       run: conda env update --file environment.yml --name base
 
-    - name: Lint with flake8
+    - name: Lint and Test
       run: |
-        conda run -n base flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        conda run -n base flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-
-    - name: Test with pytest
-      run: conda run -n base pytest
+        conda run -n base flake8 .
+        conda run -n base pytest

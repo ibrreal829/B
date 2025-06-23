@@ -7,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repo
+      uses: actions/checkout@v4
 
     - name: Set up Miniconda
       uses: conda-incubator/setup-miniconda@v2
@@ -17,10 +18,10 @@ jobs:
         activate-environment: base
         use-mamba: true
 
-    - name: Update Conda environment
+    - name: Update environment
       run: conda env update --file environment.yml --name base
 
-    - name: Lint and Test
+    - name: Run flake8 and pytest
       run: |
         conda run -n base flake8 .
         conda run -n base pytest

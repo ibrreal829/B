@@ -1,0 +1,29 @@
+name: Instagram Gmail Hunter
+
+on:
+  workflow_dispatch:  # Manual trigger from GitHub UI
+
+jobs:
+  run-hunter:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install requests faker user_agent pycountry
+
+    - name: Run Hunter Script
+      run: |
+        echo "Running with Telegram Bot Token and Chat ID..."
+        python m.py
+      env:
+        TOKEN: 7718413622:AAG3Px0X8ZbnoqnwWXUSalfC0N6vGf8sskI
+        CHAT_ID: 6800732852
